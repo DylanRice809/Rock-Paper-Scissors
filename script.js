@@ -15,10 +15,6 @@ function getComputerChoice (number) {
     }
 }
 
-// recieves user's choice for input
-let playerChoice = prompt("Choose: Rock, Paper, or Scissors");
-playerChoice = playerChoice.toLowerCase();
-
 // provides main function for playing a round
 function playRound (playerSelection, computerSelection) {
     //Compare player choice to the computer's choice
@@ -54,5 +50,17 @@ function playRound (playerSelection, computerSelection) {
     }
 }
 
-// plays a round
-console.log(playRound(playerChoice, getComputerChoice(getRandom())));
+// create a function to play five rounds to make up a game
+function game () {
+    for (let i = 0; i < 5; i++) {
+        // recieves user's choice for input
+        let playerChoice = prompt("Choose: Rock, Paper, or Scissors");
+        playerChoice = playerChoice.toLowerCase();
+        let computerChoice = getComputerChoice(getRandom());
+        // plays a round
+        console.log(playRound(playerChoice, computerChoice));
+    }
+}
+
+// runs a full game of five rounds
+game();
