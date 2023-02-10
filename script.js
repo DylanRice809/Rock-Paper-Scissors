@@ -17,7 +17,7 @@ function getComputerChoice (number) {
 
 // provides main function for playing a round
 function playRound (playerSelection, computerSelection) {
-    //Compare player choice to the computer's choice
+    //Compare player choice to the computer's choice, and return a string displaying the results
     if (playerSelection == "rock") {
         switch (true) {
             case (computerSelection == "scissors"):
