@@ -15,38 +15,40 @@ function getComputerChoice (number) {
     }
 }
 
+let win;
+
 // provides main function for playing a round
 function playRound (playerSelection, computerSelection) {
     //Compare player choice to the computer's choice, and return a string displaying the results
     if (playerSelection == "rock") {
         switch (true) {
             case (computerSelection == "scissors"):
-                return `You win! ${playerSelection} beats ${computerSelection}.`;
+                return 1
             case (computerSelection == "paper"):
-                return `You lose! ${computerSelection} beats ${playerSelection}.`;
+                return -1;
             default:
-                return `It's a draw. You both chose ${playerSelection}.`;
+                return 0;
         }
     } else if (playerSelection == "paper") {
         switch (true) {
             case (computerSelection == "rock"):
-                return `You win! ${playerSelection} beats ${computerSelection}.`;
+                return 1;
             case (computerSelection == "scissors"):
-                return `You lose! ${computerSelection} beats ${playerSelection}.`;
+                return -1;
             default:
-                return `It's a draw. You both chose ${playerSelection}.`
+                return 0;
         }
     } else if (playerSelection == "scissors") {
         switch (true) {
             case (computerSelection == "paper"):
-                return `You win! ${playerSelection} beats ${computerSelection}.`;
+                return 1;
             case (computerSelection == "rock"):
-                return `You lose! ${computerSelection} beats ${playerSelection}.`;
+                return -1;
             default:
-                return `It's a draw. You both chose ${playerSelection}.`
+                return 0;
         }
     } else {
-        return "You don't seem to have entered anything";
+        return (win = null);
     }
 }
 
@@ -62,5 +64,54 @@ function game () {
     }
 }
 
+function displayResult (playerSelection, computerSelection) {
+    if (win == 1) {
+        message = `You win, ${playerSelection} beats ${computerSelection}.`;
+        victory.innerHTML = message;
+    } else if (win == 0) {
+        message = `You draw.`;
+        victory.innerHTML = message;
+    } else {
+        message = `You lose, ${playerSelection} beats ${computerSelection}.`;
+        victory.innerHTML = message;
+    }
+}
+
+let playerChoice = "";
+let computerChoice = "";
+
+//runs a game when rock button pressed
+const rock = document.querySelector(".rock");
+rock.addEventListener("click", () => {
+    playerChoice = "rock";
+    computerChoice = getComputerChoice(getRandom());
+    win = playRound(playerChoice, computerChoice);
+    console.log(win)
+    displayResult(playerChoice, computerChoice);
+})
+
+//runs a game when paper button pressed
+const paper = document.querySelector(".paper");
+paper.addEventListener("click", () => {
+    playerChoice = "paper";
+    computerChoice = getComputerChoice(getRandom());
+    win = playRound(playerChoice, computerChoice);
+    console.log(win)
+    displayResult(playerChoice, computerChoice);
+})
+
+//runs a game when scissors button pressed
+const scissors = document.querySelector(".scissors");
+scissors.addEventListener("click", () => {
+    playerChoice = "scissors";
+    computerChoice = getComputerChoice(getRandom());
+    win = playRound(playerChoice, computerChoice);
+    console.log(win)
+    displayResult(playerChoice, computerChoice);
+})
+
+const victory = document.querySelector(".results");
+let message = "";
+
 // runs a full game of five rounds
-game();
+//game();
