@@ -72,7 +72,7 @@ function displayResult (playerSelection, computerSelection) {
         message = `You draw.`;
         victory.innerHTML = message;
     } else {
-        message = `You lose, ${playerSelection} beats ${computerSelection}.`;
+        message = `You lose, ${computerSelection} beats ${playerSelection}.`;
         victory.innerHTML = message;
     }
 }
