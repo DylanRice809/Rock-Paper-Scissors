@@ -64,16 +64,67 @@ function game () {
     }
 }
 
-function displayResult (playerSelection, computerSelection) {
-    if (win == 1) {
-        message = `You win, ${playerSelection} beats ${computerSelection}.`;
-        victory.innerHTML = message;
-    } else if (win == 0) {
-        message = `You draw.`;
-        victory.innerHTML = message;
+const playerScoreElement = document.querySelector(".playerScore");
+let playerScore = 0;
+
+const compScoreElement = document.querySelector(".compScore");
+let computerScore = 0;
+
+playerScoreElement.innerHTML = playerScore;
+compScoreElement.innerHTML = computerScore;
+
+const header = document.querySelector(".header");
+
+let playerWin = false;
+let computerWin = false;
+let gameEnd = false;
+
+function checkWin () {
+    if (playerScore == 5) {
+        playerWin = true;
+        return playerWin;
+    } else if (computerScore == 5) {
+        computerWin = true;
+        return computerWin;
     } else {
-        message = `You lose, ${computerSelection} beats ${playerSelection}.`;
-        victory.innerHTML = message;
+        playerWin = false;
+        computerWin = false;
+    }
+}
+
+function displayResult (playerSelection, computerSelection) {
+    if (gameEnd == true) {
+        return;
+    }
+    outer: if (win == 1) {
+        playerScore ++;
+        playerScoreElement.innerHTML = playerScore;
+        if (checkWin()) {
+            message = "Congratulations! You won five rounds!"
+            header.innerHTML = message;
+            computerScore = 0;
+            playerScore = 0;
+            gameEnd = true;
+            break outer;
+        }
+        message = `${playerSelection} beats ${computerSelection}`;
+        header.innerHTML = message;
+    } else if (win == 0) {
+        message = `You draw`;
+        header.innerHTML = message;
+    } else {
+        computerScore ++;
+        compScoreElement.innerHTML = computerScore;
+        if (checkWin()) {
+            message = "Oh no, you lost!";
+            header.innerHTML = message;
+            computerScore = 0;
+            playerScore = 0;
+            gameEnd = true;
+            break outer;
+        }
+        message = `${computerSelection} beats ${playerSelection}.`;
+        header.innerHTML = message;
     }
 }
 
@@ -110,7 +161,14 @@ scissors.addEventListener("click", () => {
     displayResult(playerChoice, computerChoice);
 })
 
-const victory = document.querySelector(".results");
+//resets score display after game end
+const reset = document.querySelector(".reset");
+reset.addEventListener("click", () => {
+    playerScoreElement.innerHTML = "0";
+    compScoreElement.innerHTML = "0";
+    gameEnd = false;
+})
+
 let message = "";
 
 // runs a full game of five rounds
