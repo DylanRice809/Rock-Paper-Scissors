@@ -107,10 +107,10 @@ function displayResult (playerSelection, computerSelection) {
             gameEnd = true;
             break outer;
         }
-        message = `${playerSelection} beats ${computerSelection}`;
+        message = `${toFirstUpper(playerSelection)} beats ${computerSelection}.`;
         header.innerHTML = message;
     } else if (win == 0) {
-        message = `You draw`;
+        message = `You draw.`;
         header.innerHTML = message;
     } else {
         computerScore ++;
@@ -123,7 +123,7 @@ function displayResult (playerSelection, computerSelection) {
             gameEnd = true;
             break outer;
         }
-        message = `${computerSelection} beats ${playerSelection}.`;
+        message = `${toFirstUpper(computerSelection)} beats ${playerSelection}.`;
         header.innerHTML = message;
     }
 }
@@ -168,6 +168,14 @@ reset.addEventListener("click", () => {
     compScoreElement.innerHTML = "0";
     gameEnd = false;
 })
+
+// takes a lowercase word and changes the first letter to uppercase
+function toFirstUpper(choice) {
+    let firstChar = choice.substring(0, 1);
+    let restOfString = choice.slice(1);
+    firstChar = firstChar.toUpperCase();
+    return firstChar + restOfString;
+}
 
 let message = "";
 
